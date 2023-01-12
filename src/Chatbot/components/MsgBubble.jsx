@@ -1,4 +1,14 @@
-const MsgBubble=()=>{
-return <h1>okay</h1>
-}
-export default MsgBubble
+const MsgBubble = (props) => {
+  return (
+    <>
+      {props.msgStore.map((msg) => {
+        return (
+          <div className={msg.type === "bot" ? "bot-message" : "user-message"}>
+            {msg.text}
+          </div>
+        );
+      })}
+    </>
+  );
+};
+export default MsgBubble;

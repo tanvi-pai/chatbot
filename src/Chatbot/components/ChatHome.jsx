@@ -1,5 +1,6 @@
 import { Card, Form } from "react-bootstrap";
 import { useState } from "react";
+import MsgBubble from "./MsgBubble";
 const ChatHome = () => {
   const [msgStore, setMsgStore] = useState([
     { text: "how may i help", type: "bot" },
@@ -21,7 +22,7 @@ const ChatHome = () => {
       <Card className="loading-banner">
         <Card.Header>Hello</Card.Header>
         <Card.Body>
-          
+          <MsgBubble msgStore={msgStore}/>
         </Card.Body>
         <Card.Footer className="px-0">
           <div className="admin-cei-edit-style">
@@ -31,6 +32,7 @@ const ChatHome = () => {
               type="text"
               placeholder="Type your question"
               onChange={onUserInput}
+              value={userInput}
            
             />
             </Form>
