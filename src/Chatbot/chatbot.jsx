@@ -1,20 +1,7 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import { Table, Col, Stack } from "react-bootstrap";
-import Dashboard from "../Dashboard/dashboard";
-
+import React from "react";
+import ChatHome from "./components/ChatHome";
 const Chatbot = () => {
-
-  useEffect(() => {
-    axios.get("http://192.168.9.83:5000/wpc").then((response) => {
-      console.log("resppp", response)
-    })
-  })
-
-
-  return <div>
- 
-  </div>
+  return <ChatHome/>;
 };
 
 export default Chatbot;
