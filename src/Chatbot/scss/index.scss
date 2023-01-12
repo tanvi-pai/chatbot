@@ -8,6 +8,9 @@
 .user-input{
   border: none !important;
 }
+.message-container {
+  width: 100%;
+}
 .bot-message {
   float: left;
   padding: 15px 20px;
@@ -16,6 +19,7 @@
   background: #00aaa5;
   color: white;
   min-width: 40px;
+  text-align: left;
 }
 
 .user-message {
@@ -25,4 +29,11 @@
   border-radius: 20px 20px 1px 20px;
   background: #cccccc;
   color: black;
+  text-align: right;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }

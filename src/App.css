@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.dashboard-container {
+  border: 5px solid #262b45;
+  background-color: #0b102b;
+  align-items: center;
+}
