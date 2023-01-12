@@ -1,7 +1,7 @@
 import React from "react";
-
+import ChatHome from "./components/ChatHome";
 const Chatbot = () => {
-  return <h1>Chatbot</h1>;
+  return <ChatHome/>;
 };
 
 export default Chatbot;

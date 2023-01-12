@@ -1,0 +1,28 @@
+
+
+.loading-banner {
+  background-color: #0B102B;
+  border-color: #27293e !important;
+  width: 80%;
+}
+.user-input{
+  border: none !important;
+}
+.bot-message {
+  float: left;
+  padding: 15px 20px;
+  margin: 5px;
+  border-radius: 20px 20px 20px 1px;
+  background: #00aaa5;
+  color: white;
+  min-width: 40px;
+}
+
+.user-message {
+  float: right;
+  padding: 15px 10px;
+  margin: 10px;
+  border-radius: 20px 20px 1px 20px;
+  background: #cccccc;
+  color: black;
+}
