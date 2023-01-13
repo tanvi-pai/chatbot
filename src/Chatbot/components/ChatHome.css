@@ -1,4 +1,13 @@
 .card-body {
   height: 500px;
   overflow-y: scroll;
+  background-color: #141932;
+}
+.card-header{
+  background-color: #060c2f !important;
+  color: white !important;
+}
+.card-footer{
+  background-color:#141932 !important ;
+  border-top-color: #262b45 !important;
 }

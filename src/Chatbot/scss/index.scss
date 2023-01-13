@@ -7,6 +7,12 @@
 }
 .user-input{
   border: none !important;
+  box-shadow: none;
+  background-color:#141932 !important;
+color: white !important;
+  &:focus{
+    box-shadow: none !important;
+  }
 }
 .message-container {
   width: 100%;
@@ -16,7 +22,7 @@
   padding: 15px 20px;
   margin: 5px;
   border-radius: 20px 20px 20px 1px;
-  background: #00aaa5;
+  background: #5057ac;
   color: white;
   min-width: 40px;
   text-align: left;
@@ -27,8 +33,8 @@
   padding: 15px 10px;
   margin: 10px;
   border-radius: 20px 20px 1px 20px;
-  background: #cccccc;
-  color: black;
+  background: #7e4277;
+  color: white;
   text-align: right;
 }
 
@@ -36,4 +42,23 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+::-webkit-scrollbar {
+  height: 8px;
+  width: 6px;
+  opacity: 0.1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #38384e;
+  outline: 1px solid #38384e;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-corner {
+  background: none;
 }
