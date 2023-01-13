@@ -1,4 +1,5 @@
 import { Table } from "react-bootstrap";
+import {FaRobot} from "react-icons/fa"
 
 const MsgBubble = (props) => {
 
@@ -8,7 +9,11 @@ const data = [{"cei":"3.1.15","failure":"0.89"},{"cei":"3.1.16","failure":"0.89"
     <>
       {props.msgStore.map((msg, id) => {
         return (
-          <div key={id} className="message-container">
+          <div key={id} style={{position:"relative"}} className="message-container">
+              {
+                msg.type === "bot" &&
+                <FaRobot style={{position:"absolute", top:"15px", left: "0"}} color="white" size={30}/>
+              }
               <div className={msg.type === "bot" ? "bot-message" : "user-message"}>
               {msg.text}
               </div>
