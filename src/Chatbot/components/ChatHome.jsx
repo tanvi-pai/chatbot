@@ -23,31 +23,46 @@ const ChatHome = () => {
     setLoading(true)
     getAPI();
   };
-
+const errorStr=["not found",
+"lol",
+"1",
+"2",
+"4",
+"5",
+"7",
+"6",
+"10",
+"rest",
+"hi"]
   const getAPI = () => {
     axios.get("http://192.168.9.83:5000/wpc?cei_count=5").then((response) => {
       console.log("resppp", response.data)
       let string = ""
       if(response.data.cei_code.length > 1){
 
-      }else{
+      }
+      else if (response.type==="unknown"){
+        string= errorStr[Math.floor((Math.random() * 10) + 1)]
+      }
+      else{
         string = `${response.data.cei_code[0]}` + " is the worst perfoming CEI with " + `${response.data.failure_count[0] * 100}%` + "assets failuring this control."
       }
       setMsgStore((prev) => [...prev, {text : string, type: "bot"}])
+      setLoading(false)
     })
-    // setLoading(false)
+  
   }
 
 
   return (
-    <Stack direction="horizontal">
+    <Stack direction="horizontal" className="h100">
       <Col xs={6}>
         <div className="d-flex justify-content-center">
           <Card className="loading-banner">
             <Card.Header>Hello</Card.Header>
             <Card.Body>
-              {loading}
-              <MsgBubble msgStore={msgStore}/>
+            <MsgBubble msgStore={msgStore}/>
+              {loading && <MsgBubble msgStore={[{text:"...",type:"bot"}]} />}
             </Card.Body>
             <Card.Footer className="px-0">
               <div className="admin-cei-edit-style">
@@ -57,7 +72,8 @@ const ChatHome = () => {
                   type="text"
                   placeholder="Type your question"
                   onChange={onUserInput}
-                  value={userInput}           
+                  value={userInput}   
+                  readOnly={loading}        
                 />
                 </Form>
               </div>
