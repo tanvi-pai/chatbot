@@ -2,9 +2,17 @@
 
 .loading-banner {
   background-color: #0B102B;
-  border-color: #27293e !important;
-  width: 80%;
+  // border-color: #27293e !important;
+  border-radius: 10px;
+  border: 5px solid #27293e !important;
+  width: 40%;
+  margin-top: 100px;
+  border-width: 0px;
 }
+.card-footer:last-child{
+  border-radius: 0px !important;
+}
+
 .user-input{
   border: none !important;
   box-shadow: none;
@@ -26,6 +34,7 @@ color: white !important;
   color: white;
   min-width: 40px;
   text-align: left;
+  margin-left: 40px;
 }
 
 .user-message {
@@ -43,6 +52,56 @@ color: white !important;
   flex-direction: column;
   width: 100%;
 }
+
+table.table thead tr th,
+  table.table td {
+    font-size: 0.9rem;
+    font-weight: normal;
+    letter-spacing: 0px;
+    border-top: 0px solid !important;
+    border-bottom: 0px solid !important;
+    padding: 1rem;
+    outline: none;
+    color: white !important;
+  }
+  
+  table.table thead tr th, table.table tbody td {
+    border-bottom: 2px solid #21253C !important;
+  }
+  
+  table.table thead {
+    font-size: 11px;
+  }
+  
+  table.table tbody {
+    max-height: 205px;
+    font-size: 11px;
+  }
+  
+  table.table thead tr th, table.table tbody tr td{
+    text-align: left;
+    vertical-align: text-top
+  }
+  
+  table.table {
+    color: white;
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 0px;
+  }
+  
+  table.table > thead > tr > th {
+    top: 0px;
+    background-color: #262B45;
+    vertical-align: top;
+    text-align: left;
+  }
+  
+ 
+  table.table > tbody > tr > td {
+    word-break: break-word;
+    background-color: #15182E;
+  }
 ::-webkit-scrollbar {
   height: 8px;
   width: 6px;
