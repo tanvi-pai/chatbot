@@ -6,8 +6,9 @@
   border-radius: 10px;
   border: 5px solid #27293e !important;
   width: 40%;
-  margin-top: 100px;
-  border-width: 0px;
+}
+.card-header:first-child{
+  border-radius: 0px !important;
 }
 .card-footer:last-child{
   border-radius: 0px !important;

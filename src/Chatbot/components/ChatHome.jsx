@@ -8,10 +8,17 @@ import {AiOutlineSend} from "react-icons/ai"
 
 const ChatHome = () => {
   const [msgStore, setMsgStore] = useState([
-    { text: "how may i help", type: "bot", data: [] },
+    { text: "Hello, welcome to Chatbot", type: "bot", data: [], list: [], table: "", data2: [] },
   ]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false)
+  const [welcome, setWelcome] = useState(true)
+
+  useEffect(() => {
+    let msg = [...msgStore]
+    msgStore.push({text: "I can answer questions about your evidence table. What can I help you with?", type:"bot"})
+    setMsgStore([...msg])
+  }, [])
   
   const onUserInput = (event) => {
     setUserInput(event.target.value);
@@ -31,7 +38,7 @@ const ChatHome = () => {
   };
   
   const errorStr=[
-    "Could you check it and try it again?", 
+    "Could you check it and try again?", 
     "I'm sorry, this question is too difficult for me.",
     "Could you reformulate it so I can try answering it again?",
     "Sorry, I'm still learning and I can't help you with that right now.", 
@@ -41,29 +48,51 @@ const ChatHome = () => {
   
   const getAPI = () => {
     axios.post("http://192.168.9.83:5000/home", {question:userInput}).then((response) => {
-      console.log("resppp", response, response.data)
       let string = ""
       let data = []
+      let data2 = []
+      let table = ""
 
       switch(response.data.type){
         case "worst_performer": {
-          string = `${response.data.result.cei_code[0]}` + " is the worst perfoming CEI with " + `${response.data.failure_count[0] * 100}%` + "assets failuring this control."
+          string = `${response.data.response.cei_code[0]}` + " is the worst perfoming CEI with " + `${response.data.response.failure_count[0] * 100}%` + " assets failuring this control."
         break;
         }
         case "top_5": {
           string = "Below listed are the worst performing CEIs"
-          data = formatTableData(response.data.cei_code, response.data.failure_count)
+          table = "top_5"
+          data = formatTableData(response.data.cei_code, response.data.failure_count, "cei", "failure")
           break;
         }
         case "cei_status": {
-          string = "hi"
+          string = "This CEI says that " + `${response.data.response.cei_description}` + "." + "This CEI has " + `${response.data.response.cei_severity}` + " severity with failure percentage of " + `${Math.round(response.data.response.failure_ratio*100)}%`
+          break
+        }
+        case "asset_status": {
+          let count = Math.round(response.data.response.failure_ratio*100)
+          string = "This asset is a " + `${response.data.response.asset_type}` + " which belongs to Asset class : " + `${response.data.response.asset_class}` + "." + "This asset has failed in " + `${response.data.response.failure_count}` + " CEIs with a failure ratio of " + count + "%"
+          table = "asset_status"
+          data = formatTableData(response.data.response.cei_severity, response.data.response.cei_severity_count, "severity", "count")
+          data2 = formatTableData(response.data.response.controls, response.data.response.controls_failed, "controls", "controls_failed")
           break
         }
         case "vulnerable_asset": {
-          string = "hi"
+          string = "Based on asset and CEI criticalities, the asset " + `${response.data.response.worst_asset[0]}` + " is the most vulnerable asset."
           break;
         }
-        case "welcome" : {
+        case "desc" : {
+          string= ""
+          table = "desc"
+          data = formatTableData(response.data.response.cei_code, response.data.response.description, "cei", "description")
+          break;
+        }
+        case "cei_overall" : {
+          string=""
+          table = "cei"
+          data = formatTableData(response.data.cei_overall_key, response.data.cei_overall_desc, "cei","desc")
+          break;
+        }
+        case "unknown" : {
           string= errorStr[Math.floor((Math.random() * 6))]
           break;
         }
@@ -71,18 +100,18 @@ const ChatHome = () => {
           string = "Can you try again"
       }        
       }
-      setMsgStore((prev) => [...prev, {text : string, type: "bot", data: data}])
+      setMsgStore((prev) => [...prev, {text : string, type: "bot", data: data, table: table, data2: data2}])
       setLoading(false)
     })
   }
 
-  const formatTableData = (cei,failure_count) => {
+  const formatTableData = (cei,failure_count, key1, key2) => {
     let arr = []
 
     cei.map((item, index) => {
       let obj = {
-        "cei": cei[index],
-        "failure": failure_count[index]
+        [key1]: cei[index],
+        [key2]: failure_count[index]
       }
       arr.push(obj)
     })
@@ -91,9 +120,9 @@ const ChatHome = () => {
   }
 
   return (
-        <div className="d-flex justify-content-center">
-          <Card className="loading-banner">
-            <Card.Header>CHATBOT</Card.Header>
+        <div className="h100 d-flex justify-content-center">
+          <Card className="loading-banner m-5">
+            <Card.Header style={{fontSize: "20px"}}>CHATBOT</Card.Header>
             <Card.Body className="msg-body dark-scroll">
               <MsgBubble msgStore={msgStore}/>
               {loading && <MsgBubble msgStore={[{text:"...",type:"bot"}]} />}
@@ -107,7 +136,7 @@ const ChatHome = () => {
                   placeholder="Type your question...."
                   onChange={onUserInput}
                   value={userInput}   
-                  readOnly={loading}        
+                  // readOnly={loading}        
                 />
                 <div onClick={onSend} style={{position:"absolute", right: "10px", bottom: "6px", "cursor":"pointer"}}> <AiOutlineSend  color="white" size={25}/></div>
                 </Form>
