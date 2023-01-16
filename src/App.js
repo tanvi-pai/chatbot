@@ -13,7 +13,6 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/' exact element={<Chatbot />}></Route>
-          <Route path='/dashboard' exact element={<Dashboard />}></Route>
         </Routes>
        </BrowserRouter>
     </div>
